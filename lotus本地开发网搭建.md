@@ -1,6 +1,6 @@
 ### 搭建本地测试网
 
-参考blgo  http://www.r9it.com/20200106/lotus-local-testnet.html
+参考   http://www.r9it.com/20200106/lotus-local-testnet.html
 
 官网： https://github.com/filecoin-project/lotus/blob/master/documentation/en/local-dev-net.md
 
