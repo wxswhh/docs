@@ -1,6 +1,7 @@
 ### 搭建本地测试网
 
 参考blgo  http://www.r9it.com/20200106/lotus-local-testnet.html
+
 官网： https://github.com/filecoin-project/lotus/blob/master/documentation/en/local-dev-net.md
 
 ### 开始搭建
@@ -52,8 +53,7 @@
     go build
 
     // 运行程序 默认监听 7777端口;地址为创世节点钱包地址
-    ./fountain run –front 0.0.0.0:7777 –from t3xe2uwpwag4kyo4igucvgdkqukaqbys3k362dtirnkr6meeu5o2xq4mfnuye7imqp5bcszwqdrf
-i4eediicja
+    ./fountain run –front 0.0.0.0:7777 –from t3xe2uwpwag4kyo4igucvgdkqukaqbys3k362dtirnkr6meeu5o2xq4mfnuye7imqp5bcszwq。。。
 
     // tips: 最新代码里面没有 1024 扇区，需要更改部分代码
     在 ./cmd/lotus-fountain/main.go 文件 在 263行左右
