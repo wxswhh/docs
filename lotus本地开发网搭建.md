@@ -10,7 +10,11 @@
 
 另外三台机器: 172.16.8.33 /172.16.8.41 /172.16.8.54； 可执行文件日志都在 ~/lotus-bin 目录下
 	
+	// 菜单导航
+	devnetmenu.sh 
 	
+	tips:lotus-storage-miner init ... 时候, 需要加上 --nosyn参数
+	//-----------------------------------
 	// 初始化初始节点矿工
 	genesis-init.sh
 	//重启矿工
@@ -125,8 +129,8 @@
     //创建钱包地址
     ./lotus wallet new bls
 
-    // 进入上面 fountain web页面创建 初始化创建矿工,返回初始化就行
-    lotus-storage-miner init --actor=t01424 --owner=t3spmep2xxsl33o4gxk7yjxcobyohzgj3vejzerug25iinbznpzob6a6kexcbeix73th6vjtzfq7boakfdtd6a
+    // 进入上面 fountain web页面创建 初始化创建矿工,返回初始化就行,初始化是需要加上 --nosync=true参数
+    lotus-storage-miner init --actor=t01424 --owner=t3spmep2xxsl33o4gxk7yjxcobyohzgj3vejzerug25iinbznpzob6a6kexcbeix73th6vjtzfq7boakfdtd6a --nosync=true
 
 
     
