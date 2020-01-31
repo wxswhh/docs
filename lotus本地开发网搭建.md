@@ -4,7 +4,37 @@
 
 官网： https://github.com/filecoin-project/lotus/blob/master/documentation/en/local-dev-net.md
 
-### 开始搭建
+### 脚本简化
+
+在成都 172.16.8.29 的机器上面 ~/devnet ，脚本都在此目录下， 可执行文件在 ~/lotus目录下面
+
+另外三台机器: 172.16.8.33 /172.16.8.41 /172.16.8.54； 可执行文件日志都在 ~/lotus-bin 目录下
+	
+	
+	// 初始化初始节点矿工
+	genesis-init.sh
+	//重启矿工
+	genesis-start.sh
+	// 停止矿工
+	genesis-stop.sh
+
+	//启动fountain程序,创建初始化矿工地址; http://110.185.107.117:7778/
+	fountain-start.sh
+	//停止fountain
+	fountain-stop.sh
+
+	// 初始化其他节点 示例 sh setup-host.sh 172.16.8.33，该脚本只初始化了节点，未创建初始化矿工
+	//需要自己手动按照流程创建
+	setup-host.sh
+	//启动其他节点 sh setup-host.sh 172.16.8.33,重新启动节点矿工
+	deploy-host.sh
+
+	
+
+
+
+
+### 具体步骤
 
 
 编译代码
@@ -59,7 +89,7 @@
     go build
 
     // 运行程序 默认监听 7777端口(要改ocfs心跳占用这个端口); 地址为创世节点钱包地址，注意   
-    ./fountain run –front 0.0.0.0:7778 –from t3wx7kkfvox2wp5dkyg7ghj5d2wyws4axrparfytqu4nvs3mosmopzw5o5ic5kxnmlbaivgob6rww5fcsygj6q
+    ./fountain run -front 0.0.0.0:7778 -from t3wx7kkfvox2wp5dkyg7ghj5d2wyws4axrparfytqu4nvs3mosmopzw5o5ic5kxnmlbaivgob6rww5fcsygj6q
 
     // tips: 最新代码里面没有 1024 扇区，需要更改部分代码
     在 ./cmd/lotus-fountain/main.go 文件 在 263行左右
