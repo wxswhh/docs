@@ -3,12 +3,13 @@
 lotus 版本: 7bd130628a1179f23f744b7b19e749d7
 
 ## 环境变量设置
-> WORKER_PATH="/mnt/.lotusstorage"
-> LOTUS_STORAGE_PATH="/mnt/.lotusstorage"
-> FIL_PROOFS_PARAMETER_CACHE="/dev/shm/tmp/filecoin-proof-parameters"
-> TMPDIR="/dev/shm/tmp"
+> WORKER_PATH="/mnt/.lotusstorage" 
+> LOTUS_STORAGE_PATH="/mnt/.lotusstorage" 
+> FIL_PROOFS_PARAMETER_CACHE="/dev/shm/tmp/filecoin-proof-parameters" 
+> TMPDIR="/dev/shm/tmp" 
 ###  提高运行速度 
-/dev/shm/tmp 是运行在内存里的，因此可以加快速度，经过实测，启动速度从5分钟缩短成1分钟
+/dev/shm/tmp 是运行在内存里的，因此可以加快速度，经过实测，启动速度从5分钟缩短成1分钟 
+需要将filecoin-proof-parameters复制到/dev/shm/tmp/
 
 ## 配置文件<sup>1</sup>
 把.lotusstorage/config.toml中的noprecommit和nocommit设置成true，并且把注释去掉
