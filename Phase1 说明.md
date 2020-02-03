@@ -20,6 +20,7 @@ lotus 版本: 7bd130628a1179f23f744b7b19e749d7
 
 ## 启动worker 
 > 只启动precommit lotus-seal-worker --no-commit=true run  <sup>2</sup>
+
 > 只启动commit lotus-seal-worker --no-precommit=true run  <sup>3</sup>
 
 ## 启动方案
