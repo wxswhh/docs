@@ -189,11 +189,11 @@ ssh "$host" 'bash -s' <<'EOF'
 export IPFS_GATEWAY="https://proof-parameters.s3.cn-south-1.jdcloud-oss.com/ipfs/"
 export FIL_PROOFS_PARAMETER_CACHE=/tmp/filecoin-proof-parameters  
 cd ~/lotus-bin         
-nohup ./lotus  daemon  >>lotus.log  2>&1 &
+nohup ./lotus  daemon  --bootstrap=false >>lotus.log  2>&1 &
 sleep 10
 ./lotus net connect $(cat net-addr|sed -n 1p)
 sleep 3
-nohup ./lotus-storage-miner run  >> miner.log 2>&1 &
+nohup ./lotus-storage-miner run  --nosync >> miner.log 2>&1 &
 sleep 1
 EOF
 done
