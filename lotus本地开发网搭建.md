@@ -4,6 +4,26 @@
 
 官网： https://github.com/filecoin-project/lotus/blob/master/documentation/en/local-dev-net.md
 
+
+#### 脚本简化
+主要参考了: lotus/scripts/init-network.sh 脚本创建
+
+说明:所有脚本在 29机器上面   ~/localdevnet 目录下
+
+    // 中继节点 主机地址列表
+    bootstrap
+    // 普通节点(需要自己初始化矿工)
+    host
+    //部署初始化脚本发
+    localdevnet.sh
+    //1024扇区 fountain页面
+    miner.html
+    //临时目录
+    tmp
+
+29机器对 33，41，54做了免密登录；29 创世矿工的节点，22，41，为中继节点，54为普通节点;
+在 29机器上面执行 sh localdevnet.sh 即可    
+
 ### 开始搭建
 
 
@@ -84,7 +104,7 @@
 
 
 
- 运行其他的节点
+ 运行其他的节点，将可执行文件拷贝到指定服务器
 
     // 将初始节点生成的 genecis.car 拷贝过来，初始化
     ./lotus daemon --genesis=genesis.car --bootstrap=false   
@@ -97,6 +117,26 @@
 
     // 进入上面 fountain web页面创建 初始化创建矿工,返回初始化就行
     lotus-storage-miner init --actor=t01424 --owner=t3spmep2xxsl33o4gxk7yjxcobyohzgj3vejzerug25iinbznpzob6a6kexcbeix73th6vjtzfq7boakfdtd6a
+
+
+#### 脚本部署
+
+在35机器上面 ~/deploy_dev_net 目录下
+
+初始化操作
+
+    //复制可执行程序到目标机器上面
+
+
+    // 复制 lotus-daemon.service lotus-miner.service 当相应的主机上面
+    sh setup-host.sh 172.16.8.33
+
+
+
+
+
+
+
 
 
     
