@@ -33,7 +33,10 @@ rm .install-filcrypto \
 5. 进入到lotus目录，重新生成
 ```shell
 cd ../..
-make debug
 make 
+```
+需要生成bench的话:
+```shell
+make bench
 ```
 注意这里如果使用make clean会把第4步编译好的删除，需要重新到extern/filecoin-ffi目录下执行一次第4步
