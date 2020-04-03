@@ -40,3 +40,26 @@ make
 make bench
 ```
 注意这里如果使用make clean会把第4步编译好的删除，需要重新到extern/filecoin-ffi目录下执行一次第4步
+
+# 使用更新版的rust-fil-proofs
+1. 进入源码目录
+```shell
+cd  extern/filecoin-ffi/rust
+```
+2. 更新记录对应的rust-fil-proofs
+
+```shell
+cargo update
+```
+3. 从源码生成rust-fil-proof库
+```shell
+cd ..
+rm .install-filcrypto \
+    ; make clean \
+    ; FFI_BUILD_FROM_SOURCE=1 make
+```
+4. 进入到lotus目录，重新生成
+```shell
+cd ../..
+make 
+```
