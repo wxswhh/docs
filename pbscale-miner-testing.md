@@ -4,7 +4,7 @@ You may call us Xinji Rongwei(星际荣威), base on Chengdu of China.We already
 it was located in Chengdu, Xian, Wuhan, Shanghai, Guangzhou and Chongqing, 
 with different Operator of National backbone network. Configuring 3PB+ storage pool for each IDC, 
 high performance CPU of Intel,378GB RAM,and 10 Gigabit networking.
-We will also add new high performance servers to achieve the optimal configuration and maximum efficiency of the cluster
+We will also add new high performance servers to achieve the optimal configuration and maximum efficiency of the cluster.
 
 A team of 12 people including R & D, hardware and software operation and maintenance personnel serves for Filecoin Project,
 So, we have adequate resources to participate in the PB-scale miner test, 
