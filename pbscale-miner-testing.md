@@ -25,6 +25,6 @@ And We are do very willing to provide real valuable test data.
   - Sealing and Proofs metrics
   - Deal state metrics
   - Blockchain metrics
-  - Automation or Integration testing
+  - mined block metrics
   - Seal Worker configurations(different configuration do different job, maximum efficiency)  
 
