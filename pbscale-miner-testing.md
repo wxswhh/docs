@@ -1,10 +1,8 @@
 # Test plan
 ## Team Introduction
-Our team is called Xinji Rongwei, base in Chengdu,China.We have already deployed six IDCs distritued in Chengdu, Xian, Wuhan, Shanghai, Guangzhou and Chongqing, with different Netwrorking Operator. Configuring 3PB+ storage pool for each IDC, 
-high performance CPU of Intel,378GB RAM,and 10 Gigabit networking.
-We will also add new high-performance servers to achieve the optimal configurations and maximum efficiency of the cluster.
+Our team is called Xinji Rongwei, base in Chengdu, China. We have already deployed six IDCs distributed in Chengdu, Xian, Wuhan, Shanghai, Guangzhou, and Chongqing, with different Networking Operator. Configuring 3PB+ storage pool for each IDC, high-performance CPU of Intel,378GB RAM, and 10 Gigabit networking. We will also add new high-performance servers to achieve the optimal configurations and maximum efficiency of the cluster.
 
-We currently hava a team of 12 people including R & D, hardware and software engineering and maintenance personnel for Filecoin.
+We currently have a team of 12 people including R & D, hardware and software engineering and maintenance personnel for Filecoin.
 So, we have adequate resources to participate in the PB-scale miner test, And we are willing to provide real valuable testing data.
 ## Power validation(testnet2,todo) 
 ## Test list
