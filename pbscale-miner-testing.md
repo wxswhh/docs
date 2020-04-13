@@ -7,10 +7,6 @@ So, we have adequate resources to participate in the PB-scale miner test, And we
 ## Power validation(testnet II,todo) 
 
 ## Test list
-- Benchmarking
-  - CPU, GPU, RAM, SSD and HDDs, also including Switches
-  - Different hardware configurations(it has been determined that 4 CPUs will be tested, Combined test of different CPU and different capacity of RAM,
-  SSD/HDDs and networking will be included too.)
 - Networking bandwidth and throughput metrics
   - Metrics of Gigabit and 10 Gigabit networking 
 - Filecoin software configurations
@@ -21,7 +17,8 @@ So, we have adequate resources to participate in the PB-scale miner test, And we
   - Mined block and commited block metrics(ePoSt time)
   - Seal Worker configurations desicription(divied by different jobs that is based on the job which is needs resources and comsuption time, different configurations do different job, maximum efficiency)  
   - Seal speed per US Dollar (GB/h) metrics
-  - Find out performance bottlenecks
+  - Find out performance bottlenecks if we could found
   - Performance of ePoSt on 5 PB+ of sealed data metrics
 
-## 
+## Topology
+
