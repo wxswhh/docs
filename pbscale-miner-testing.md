@@ -4,7 +4,8 @@ Our team is called Xinji Rongwei, base in Chengdu, China. We have already deploy
 
 We currently have a team of 12 people including R & D, hardware and software engineering and maintenance personnel for Filecoin.
 So, we have adequate resources to participate in the PB-scale miner test, And we are willing to provide real valuable testing data.
-## Power validation(testnet2,todo) 
+## Power validation(testnet II,todo) 
+
 ## Test list
 - Benchmarking
   - CPU, GPU, RAM, SSD and HDDs, also including Switches
@@ -13,12 +14,14 @@ So, we have adequate resources to participate in the PB-scale miner test, And we
 - Networking bandwidth and throughput metrics
   - Metrics of Gigabit and 10 Gigabit networking 
 - Filecoin software configurations
-  - Sector builder and sizes under test
-  - Sector loss monitoring
-  - Daemon - Miner configurations
   - Sealing and Proofs metrics
-  - Deal state metrics
+  - Sector loss monitoring
+  - Daemon - Miner configurations desicription
   - Blockchain metrics
-  - mined block metrics(ePoSt time)
-  - Seal Worker configurations(different configuration do different job, maximum efficiency)  
+  - Mined block and commited block metrics(ePoSt time)
+  - Seal Worker configurations desicription(divied by different jobs that is based on the job which is needs resources and comsuption time, different configurations do different job, maximum efficiency)  
+  - Seal speed per US Dollar (GB/h) metrics
+  - Find out performance bottlenecks
+  - Performance of ePoSt on 5 PB+ of sealed data metrics
 
+## 
