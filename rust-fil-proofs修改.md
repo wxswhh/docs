@@ -3,7 +3,7 @@
 ```shell
 git clone https://github.com/filecoin-project/lotus
 cd lotus
-git checkot testnet/3
+git checkout interopnet
 make
 
 ```
