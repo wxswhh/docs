@@ -4,9 +4,9 @@
     
     其余节点要连接到该初始节点需要进行以下下操作:
     1. 将 ~/interopnet-release-bin/config/devnet.car 拷贝到到你的项目 覆盖 build/genesis/devnet.car文件
-    2. 将 /ip4/172.19.15.149/tcp/34585/p2p/12D3KooWPGshHExrwmDmFJnQ6MGdrQFiqSwLXw9uCfSLNM21anHP 这个地址覆盖 build/bootstrap/bootstrap.pi 文件的内容
+    2. 将 /ip4/113.142.73.227/tcp/34585/p2p/12D3KooWPGshHExrwmDmFJnQ6MGdrQFiqSwLXw9uCfSLNM21anHP 这个地址覆盖 build/bootstrap/bootstrap.pi 文件的内容
     3. make build 编译即可
-    4. http://172.19.15.149:7778/  创建矿工地址
+    4. http://113.142.73.227:7778/  创建矿工地址
    
 
 tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细搭建初始节点操作可以不管。
