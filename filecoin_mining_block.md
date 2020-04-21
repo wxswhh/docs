@@ -19,6 +19,8 @@
 **lotus实现方案**
 * 奖励计算过程
 ```
+// github.com\filecoin-project\lotus\chain\vm\vm.go:731
+
 var miningRewardTotal = types.FromFil(build.MiningRewardTotal)
 var blocksPerEpoch = types.NewInt(build.BlocksPerEpoch)
 
@@ -36,6 +38,8 @@ func MiningReward(remainingReward types.BigInt) types.BigInt {
 * 奖励= 初始奖励 * 余额比例 / 每epoch区块
 * 奖励发放过程
 ```
+// github.com\filecoin-project\lotus\chain\stmgr\stmgr.go:154
+
 reward := vm.MiningReward(netact.Balance)
 for tsi, b := range blks {
 	// .........
