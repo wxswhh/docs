@@ -24,6 +24,11 @@ rm .install-filcrypto \
 git = "https://github.com/filecoin-project/rust-filecoin-proofs-api.git"
 改成
 git = "https://github.com/plotozhu/rust-filecoin-proofs-api.git"
+```  
+  * 如果使用其他的版本，请修改branch,如
+```
+ branch = "16MP0"
+
 ```
 * 然后执cargo更新，并且退到上一层目录
 ```shell
