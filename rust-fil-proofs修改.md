@@ -3,7 +3,7 @@
 ```shell
 git clone https://github.com/filecoin-project/lotus
 cd lotus
-git checkout interopnet
+# git checkout interopnet
 make
 
 ```
@@ -14,16 +14,28 @@ rm .install-filcrypto \
     ; make clean \
     ; FFI_BUILD_FROM_SOURCE=1 make
 ```
-3. 第2步会下载rust-fil-proof的源码并进行编译，在testnet/3分支中使用了 1.0-alpha的版本了，修改rust-fil-proofs
+3. 第2步会下载rust-fil-proof的源码并进行编译，修改rust-fil-proofs
 ```shell
+ cd rust
  vim rust/Cargo.toml
 ```
-修改配置
+* 修改配置
 ```
 git = "https://github.com/filecoin-project/rust-filecoin-proofs-api.git"
 改成
 git = "https://github.com/plotozhu/rust-filecoin-proofs-api.git"
+```  
+  * 如果使用其他的版本，请修改branch,如
 ```
+ branch = "16MP0"
+
+```
+* 然后执cargo更新，并且退到上一层目录
+```shell
+cargo update 
+cd ..
+```
+
 4. 然后重新执行 
 ```shell
 rm .install-filcrypto \
