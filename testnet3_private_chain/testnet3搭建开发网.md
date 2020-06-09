@@ -1,12 +1,12 @@
 #### 说明
 
-    西安 node02 机器上面是初始节点, 相关的bin,脚本，配置文件 在 ~/interopnet-release-bin/ 目录下面，
+    在广州 15 号机器上面 (地址是内网地址，需要跨外网更换为外网地址即可)
     
     其余节点要连接到该初始节点需要进行以下下操作:
-    1. 将 ~/interopnet-release-bin/config/devnet.car 拷贝到到你的项目 覆盖 build/genesis/devnet.car文件
-    2. 将 /ip4/113.142.73.227/tcp/34585/p2p/12D3KooWG38mEdUdPhDpbY5c9FgxHngZnc3UhWsp4SC9sBgJTyH2    这个地址覆盖 build/bootstrap/bootstrap.pi 文件的内容
+    1. 将 ~/lotus-res/devnet.car 拷贝到到你的项目 覆盖 build/genesis/devnet.car文件
+    2. 将 /ip4/172.18.0.115/tcp/46615/p2p/12D3KooWHhAsE3nGx57eLpyLFFuYHAj9w1XFf6uiQ92w7PFG2WCQ    这个地址覆盖 build/bootstrap/bootstrap.pi 文件的内容
     3. make build 编译即可
-    4. http://113.142.73.227:7778/  创建矿工地址
+    4. http://172.18.0.115:7778/  创建矿工地址
    
 
 tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细搭建初始节点操作可以不管。
@@ -83,14 +83,14 @@ tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细
 
         Download the 2048 byte parameters:
         ```sh
-        ./lotus fetch-params --proving-params 536870912
+        ./lotus fetch-params --proving-params 34359738368  、// 536870912    34359738368    68719476736
         ```
 
 
         Pre-seal some sectors:
 
         ```sh
-        ./lotus-seed pre-seal --sector-size 536870912 --num-sectors 4 // 至少2G的有效存储 
+        ./lotus-seed pre-seal --sector-size 34359738368 --num-sectors 1 // 至少2G的有效存储 
         ```
 
         Create the genesis block and start up the first node:
@@ -128,7 +128,7 @@ lotus-fountain程序
     // 编译该目录文件
     cmd/lotus-fountain/main.go
     go build
-    ./fountain run -front 0.0.0.0:7778 -from t3wx7kkfvox2wp5dkyg7ghj5d2wyws4axrparfytqu4nvs3mosmopzw5o5ic5kxnmlbaivgob6rww5fcsygj6q
+    ./lotus-fountain run -front 0.0.0.0:7778 -from t3vulpbndojlubpd37yaz4trwplxu2et7bzuikp6eheundmuydtuvmhay2cvhdj5fr4gww3tyj6xofnj7i56ga
 
 初始节点初始化完成
 
