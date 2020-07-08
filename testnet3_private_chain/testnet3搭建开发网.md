@@ -9,18 +9,19 @@
     4. http://172.16.23.118:7778/  创建矿工地址
    
 upateTime: 2020/0708
-tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细搭建初始节点操作可以不管。文档待整理更新
+tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细搭建初始节点操作可以不管。
 
 #### 初始节点编译搭建
 
-    # 截止当前测试中 testnet/3 分支代码编译测试，跑不成功，以 interopnet 分支代码测试部署
 
     git clone https://github.com/filecoin-project/lotus.git
     
-    // 互通网分支
-    git checkout -b interopnet origin/ineropnet
+    // 分支
+    git checkout v0.4.1
 
-    // 编译之前需要先修改部分代码, 非debug模式编译，部
+    // 编译之前需要先修改部分代码, 非debug模式编译，
+    cmd/lotus/daemon.go 文件
+
 	Name:  "daemon",
 	Usage: "Start a lotus daemon process",
 	Flags: []cli.Flag{
@@ -59,6 +60,7 @@ tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细
                 Hidden: false,    // 改成 false, 默认为true
             },
 
+        // 这部分不用修改，最新代码已经设置了
         修改 cmd/lotus-seed/genesis.go文件
         	template.Miners = append(template.Miners, miner)
 			log.Infof("Giving %s some initial balance", miner.Owner)
@@ -70,15 +72,15 @@ tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细
 
 
 
-        #开始编译
-        make build
-        make lotus-seed
+        # 编译lotus-seed
+        env 'RUSTFLAGS=-C target-cpu=native -g' FFI_BUILD_FROM_SOURCE=1 make clean  lotus-seed
 
 
         # 以下操作跟 docoumentation/local-dev-net.md 文档一致，
-        # tips: 扇区预密封大小测试为 4个 512M的扇区，测试中 修改代码以 2048扇区大小测试发现无效
+        // ineropenet分支测试需要预埋至少2G算力 ，master分支至少 128G算力
 
-        Download the 2048 byte parameters:
+
+        // 下载参数
         ```sh
         ./lotus fetch-params --proving-params 536870912  、// 536870912    34359738368    68719476736
         ```
@@ -87,20 +89,21 @@ tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细
         Pre-seal some sectors:
 
         ```sh
+        // 单台机器密密封4个预埋扇区
         nohup ./lotus-seed  --sector-dir /opt/local_ssd/.genesis-sectors pre-seal  --sector-size 34359738368 --num-sectors 4  >presector.log 2>&1 &  // 至少2G的有效存储 
 
 
-        // 多个miner合并
-        nohup ./lotus-seed   pre-seal  --miner-addr=t01001 --sector-offset=0  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
+        // 有多台机器可以同时跑多个节省时间
+        nohup ./lotus-seed   --sector-dir=/opt/local_ssd/.genesis-sectors   pre-seal  --miner-addr=t01000 --sector-offset=0  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
 
-        nohup ./lotus-seed   pre-seal  --miner-addr=t01002 --sector-offset=0  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
+        nohup ./lotus-seed   --sector-dir=/opt/local_ssd/.genesis-sectors   pre-seal  --miner-addr=t01001 --sector-offset=0  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
+
+        nohup ./lotus-seed   --sector-dir=/opt/local_ssd/.genesis-sectors   pre-seal  --miner-addr=t01002 --sector-offset=0  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
 
         nohup ./lotus-seed   --sector-dir=/opt/local_ssd/.genesis-sectors   pre-seal  --miner-addr=t01003 --sector-offset=0  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
-        nohup ./lotus-seed   --sector-dir=/opt/local_ssd/.genesis-sectors   pre-seal  --miner-addr=t01004 --sector-offset=0  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
 
-        nohup ./lotus-seed   --sector-dir=/opt/local_ssd/.genesis-sectors01   pre-seal  --miner-addr=t01001 --sector-offset=1  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
-
-        ./lotus-seed aggregate-manifests ./pre-seal-t01000.json ./pre-seal-t01001.json ./pre-seal-t01002.json ./pre-seal-t01003.json ./pre-seal-t01004.json > ./pre-seal-genesis.json
+        // 合并多个预埋扇区配置文件
+        ./lotus-seed aggregate-manifests ./pre-seal-t01000.json ./pre-seal-t01001.json ./pre-seal-t01002.json ./pre-seal-t01003.json  > ./pre-seal-genesis.json
 
         ```
 
@@ -111,6 +114,10 @@ tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细
         
         ./lotus-seed genesis add-miner localnet.json ~/.genesis-sectors/pre-seal-genesis.json
         
+
+        // 编译lotus 
+        env 'RUSTFLAGS=-C target-cpu=native -g' FFI_BUILD_FROM_SOURCE=1 make  clean all
+
         nohup ./lotus daemon --lotus-make-genesis=dev.gen --genesis-template=localnet.json --bootstrap=false >lotus.log 2>&1 &
         ```
 
