@@ -4,11 +4,21 @@
     
     其余节点要连接到该初始节点需要进行以下下操作:
     1. 将/home/xjrw/private-chain-0.4.1/devnet.car 拷贝到到你的项目 覆盖 build/genesis/devnet.car文件
-    2. /ip4/172.16.23.118/tcp/35579/p2p/12D3KooWREo6qCDza57FxQNnDPSy4QyLm1t1eJtW4A9A3QM32MMW    这个地址覆盖 build/bootstrap/bootstrap.pi 文件的内容
+    2./ip4/172.16.23.118/tcp/33333/p2p/12D3KooWGyp7yQKDV7WcxCg3kQ9SemxDxsd8RUewVM2uuU4n5gBD    这个地址覆盖 build/bootstrap/bootstrap.pi 文件的内容
     3. env 'RUSTFLAGS=-C target-cpu=native -g' FFI_BUILD_FROM_SOURCE=1 make  clean all 编译即可
     4. http://172.16.23.118:7778/  创建矿工地址
+
+    修改少量代码 build/params_testnet.go 文件
+    power.ConsensusMinerMinPower = big.NewInt(1024 << 20)
+            miner.SupportedProofTypes = map[abi.RegisteredSealProof]struct{}{
+                abi.RegisteredSealProof_StackedDrg512MiBV1:{},  // 添加支持512M
+                abi.RegisteredSealProof_StackedDrg32GiBV1: {},
+                abi.RegisteredSealProof_StackedDrg64GiBV1: {},
+	        }
+
    
 upateTime: 2020/0708
+
 tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细搭建初始节点操作可以不管。
 
 #### 初始节点编译搭建
@@ -71,6 +81,16 @@ tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细
 			})
 
 
+        // 修改支持512M 扇区
+        build/params_testnet.go  文件
+
+        	power.ConsensusMinerMinPower = big.NewInt(1024 << 20)
+            miner.SupportedProofTypes = map[abi.RegisteredSealProof]struct{}{
+                abi.RegisteredSealProof_StackedDrg512MiBV1:{},  // 添加支持512M
+                abi.RegisteredSealProof_StackedDrg32GiBV1: {},
+                abi.RegisteredSealProof_StackedDrg64GiBV1: {},
+	        }
+
 
         # 编译lotus-seed
         env 'RUSTFLAGS=-C target-cpu=native -g' FFI_BUILD_FROM_SOURCE=1 make clean  lotus-seed
@@ -103,7 +123,7 @@ tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细
         nohup ./lotus-seed   --sector-dir=/opt/local_ssd/.genesis-sectors   pre-seal  --miner-addr=t01003 --sector-offset=0  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
 
         // 合并多个预埋扇区配置文件
-        ./lotus-seed aggregate-manifests ./pre-seal-t01000.json ./pre-seal-t01001.json ./pre-seal-t01002.json ./pre-seal-t01003.json  > ./pre-seal-genesis.json
+        ./lotus-seed aggregate-manifests ./pre-seal-t01000.json ./pre-seal-t01001.json ./pre-seal-t01002.json ./pre-seal-t01003.json ./pre-seal-t01004.json  > ./pre-seal-genesis.json
 
         ```
 
@@ -112,7 +132,7 @@ tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细
         ```sh
         ./lotus-seed genesis new localnet.json
         
-        ./lotus-seed genesis add-miner localnet.json ~/.genesis-sectors/pre-seal-genesis.json
+        ./lotus-seed genesis add-miner localnet.json ./pre-seal-genesis.json
         
 
         // 编译lotus 
