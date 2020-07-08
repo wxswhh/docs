@@ -5,16 +5,17 @@
     其余节点要连接到该初始节点需要进行以下下操作:
     1. 将/home/xjrw/private-chain-0.4.1/devnet.car 拷贝到到你的项目 覆盖 build/genesis/devnet.car文件
     2./ip4/172.16.23.118/tcp/33333/p2p/12D3KooWGyp7yQKDV7WcxCg3kQ9SemxDxsd8RUewVM2uuU4n5gBD    这个地址覆盖 build/bootstrap/bootstrap.pi 文件的内容
-    3. env 'RUSTFLAGS=-C target-cpu=native -g' FFI_BUILD_FROM_SOURCE=1 make  clean all 编译即可
-    4. http://172.16.23.118:7778/  创建矿工地址
+   
 
-    修改少量代码 build/params_testnet.go 文件
+    3.修改少量代码 build/params_testnet.go 文件
     power.ConsensusMinerMinPower = big.NewInt(1024 << 20)
             miner.SupportedProofTypes = map[abi.RegisteredSealProof]struct{}{
                 abi.RegisteredSealProof_StackedDrg512MiBV1:{},  // 添加支持512M
                 abi.RegisteredSealProof_StackedDrg32GiBV1: {},
                 abi.RegisteredSealProof_StackedDrg64GiBV1: {},
 	        }
+    4. env 'RUSTFLAGS=-C target-cpu=native -g' FFI_BUILD_FROM_SOURCE=1 make  clean all 编译即可
+    5. http://172.16.23.118:7778/  创建矿工地址        
 
    
 upateTime: 2020/0708
