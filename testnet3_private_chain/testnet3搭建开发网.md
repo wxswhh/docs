@@ -1,15 +1,15 @@
 #### 说明
 
-    在广州 15 号机器上面 (注意地址是内网地址，需要外网请更换)
+    在 sh 18 号机器上面 (注意地址是内网地址，需要外网请更换) lotus版本  0.4.1+git.5de7b62d.dirty+api0.5.0
     
     其余节点要连接到该初始节点需要进行以下下操作:
-    1. 将 ~/lotus-res/devnet.car 拷贝到到你的项目 覆盖 build/genesis/devnet.car文件
-    2. 将 /ip4/172.18.0.115/tcp/46615/p2p/12D3KooWHhAsE3nGx57eLpyLFFuYHAj9w1XFf6uiQ92w7PFG2WCQ    这个地址覆盖 build/bootstrap/bootstrap.pi 文件的内容
-    3. make build 编译即可
-    4. http://172.18.0.115:7778/  创建矿工地址
+    1. 将/home/xjrw/private-chain-0.4.1/devnet.car 拷贝到到你的项目 覆盖 build/genesis/devnet.car文件
+    2. /ip4/172.16.23.118/tcp/35579/p2p/12D3KooWREo6qCDza57FxQNnDPSy4QyLm1t1eJtW4A9A3QM32MMW    这个地址覆盖 build/bootstrap/bootstrap.pi 文件的内容
+    3. env 'RUSTFLAGS=-C target-cpu=native -g' FFI_BUILD_FROM_SOURCE=1 make  clean all 编译即可
+    4. http://172.16.23.118:7778/  创建矿工地址
    
-
-tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细搭建初始节点操作可以不管。
+upateTime: 2020/0708
+tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细搭建初始节点操作可以不管。文档待整理更新
 
 #### 初始节点编译搭建
 
@@ -20,10 +20,7 @@ tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细
     // 互通网分支
     git checkout -b interopnet origin/ineropnet
 
-    // 编译之前需要先修改部分代码, 非debug模式编译，部分参数默认隐藏，需要手动开启
-    修改cmd/lotus/daemon.go文件中
-
-    var DaemonCmd = &cli.Command{
+    // 编译之前需要先修改部分代码, 非debug模式编译，部
 	Name:  "daemon",
 	Usage: "Start a lotus daemon process",
 	Flags: []cli.Flag{
@@ -83,14 +80,28 @@ tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细
 
         Download the 2048 byte parameters:
         ```sh
-        ./lotus fetch-params --proving-params 34359738368  、// 536870912    34359738368    68719476736
+        ./lotus fetch-params --proving-params 536870912  、// 536870912    34359738368    68719476736
         ```
 
 
         Pre-seal some sectors:
 
         ```sh
-        ./lotus-seed pre-seal --sector-size 34359738368 --num-sectors 1 // 至少2G的有效存储 
+        nohup ./lotus-seed  --sector-dir /opt/local_ssd/.genesis-sectors pre-seal  --sector-size 34359738368 --num-sectors 4  >presector.log 2>&1 &  // 至少2G的有效存储 
+
+
+        // 多个miner合并
+        nohup ./lotus-seed   pre-seal  --miner-addr=t01001 --sector-offset=0  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
+
+        nohup ./lotus-seed   pre-seal  --miner-addr=t01002 --sector-offset=0  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
+
+        nohup ./lotus-seed   --sector-dir=/opt/local_ssd/.genesis-sectors   pre-seal  --miner-addr=t01003 --sector-offset=0  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
+        nohup ./lotus-seed   --sector-dir=/opt/local_ssd/.genesis-sectors   pre-seal  --miner-addr=t01004 --sector-offset=0  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
+
+        nohup ./lotus-seed   --sector-dir=/opt/local_ssd/.genesis-sectors01   pre-seal  --miner-addr=t01001 --sector-offset=1  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
+
+        ./lotus-seed aggregate-manifests ./pre-seal-t01000.json ./pre-seal-t01001.json ./pre-seal-t01002.json ./pre-seal-t01003.json ./pre-seal-t01004.json > ./pre-seal-genesis.json
+
         ```
 
         Create the genesis block and start up the first node:
@@ -98,9 +109,9 @@ tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细
         ```sh
         ./lotus-seed genesis new localnet.json
         
-        ./lotus-seed genesis add-miner localnet.json ~/.genesis-sectors/pre-seal-t01000.json
+        ./lotus-seed genesis add-miner localnet.json ~/.genesis-sectors/pre-seal-genesis.json
         
-        ./lotus daemon --lotus-make-genesis=dev.gen --genesis-template=localnet.json --bootstrap=false
+        nohup ./lotus daemon --lotus-make-genesis=dev.gen --genesis-template=localnet.json --bootstrap=false >lotus.log 2>&1 &
         ```
 
         Then, in another console, import the genesis miner key:
@@ -112,13 +123,13 @@ tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细
         Set up the genesis miner:
 
         ```sh
-        ./lotus-storage-miner init --genesis-miner --actor=t01000 --sector-size=536870912 --pre-sealed-sectors=~/.genesis-sectors --pre-sealed-metadata=~/.genesis-sectors/pre-seal-t01000.json --nosync
+        nohup ./lotus-storage-miner init --genesis-miner --actor=t01000 --sector-size=34359738368 --pre-sealed-sectors=~/.genesis-sectors --pre-sealed-metadata=~/.genesis-sectors/pre-seal-t01000.json --nosync >minerinit.log 2>&1 &
         ```
 
         Now, finally, start up the miner:
 
         ```sh
-        ./lotus-storage-miner run --nosync
+        nohup ./lotus-storage-miner run --nosync >miner.log 2>&1 &
         ```
 
         If all went well, you will have your own local Lotus Devnet running.
@@ -128,7 +139,7 @@ lotus-fountain程序
     // 编译该目录文件
     cmd/lotus-fountain/main.go
     go build
-    ./lotus-fountain run -front 0.0.0.0:7778 -from t3vulpbndojlubpd37yaz4trwplxu2et7bzuikp6eheundmuydtuvmhay2cvhdj5fr4gww3tyj6xofnj7i56ga
+    nohup ./lotus-fountain run -front 0.0.0.0:7778 -from t3u6grpdmn65jfn2iyuzo47kyf64yumxvrbz7clkw77jtpwy6mamogiovbbs42sikhsqhkhnp3lepqy46slpsq >lotus-fountain.log 2>&1 &
 
 初始节点初始化完成
 
