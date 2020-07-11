@@ -34,6 +34,9 @@ cargo update
 cd ..
 ```
 
+# 新增加的环境变量
+FIL_PROOFS_SSD_PARENT : SSD盘所在的位置
+
 4. 然后重新执行 
 ```shell
 rm .install-filcrypto \
