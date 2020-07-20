@@ -26,8 +26,9 @@ rm .install-filcrypto \
 [dependencies.filecoin-proofs-api]
 version = "4.0.2"
 git = "https://github.com/plotozhu/rust-filecoin-proofs-api"
-branch = "v4.0.21"
+branch = "prefetch"
 ```
+目前优化的版本是prefetch
 * 然后执cargo更新，并且退到上一层目录
 ```shell
 cargo update 
@@ -76,3 +77,11 @@ rm .install-filcrypto \
 cd ../..
 make 
 ```
+
+# 增加的参数
+CACHE_ADD_PIECE=1 或其它 是否启动addpiece缓存
+FIL_PROOFS_SSD_PARENT="/opt/local_ssd/SSD_PARENT"  ADD_PIECE缓存路径
+FIL_PROOFS_MAX_FETCH_COUNT=4    P1缓存数，以8M为单位，值从0到16，如果小于2，不启动，如果大于16，只取16，一般取4即可
+
+rm .install-filcrypto \数据
+rm .install-filcrypto \
