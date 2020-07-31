@@ -15,24 +15,7 @@ rm .install-filcrypto \
     ; make clean \
     ; FFI_BUILD_FROM_SOURCE=1 make
 ```
-# 配置C2外包 
-### 如果使用C2外包 
-```
-# 下载源码
-cd lotus/extern
-git clone https://github.com/DeepBrainChain/DBC-filecoin-ffi.git
 
-# 切换分支
-cd DBC-filecoin-ffi
-git checkout -b dbc origin/cddc56607e1d851e-webapi
-
-```
-目前的分支号是cddc56607e1d851e-webapi,详细的教程可以见这个文档 
-
-[Filecoin Snark计算API接口使用手册.docx](https://kdocs.cn/l/sygDgqBm7?f=111)
-
-### 不使用C2外包
-不使用C2 外包就不需要作修改
 
 3. 第2步会下载rust-fil-proof的源码并进行编译，修改rust-fil-proofs
 ```shell
@@ -64,9 +47,7 @@ git checkout -b prefetch origin/prefetch
 注意，这一步需要使用可用的github密码和帐号
 
 3. 修改本地指向
-    * 如果是 C2外包
-    `cd extern/DBC-filecoin-ffi`  
-    * 如果不是
+
      `cd extern/filecoin-ffi`
     
     修改 filecoin-proofs-api节,使用本地的fiecoin-proofs-api库
