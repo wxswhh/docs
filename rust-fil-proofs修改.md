@@ -3,6 +3,7 @@
 ```shell
 git clone https://github.com/filecoin-project/lotus
 cd lotus
+# 切换到需要的分支
 # git checkout interopnet
 make
 
