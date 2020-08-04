@@ -54,15 +54,15 @@ git checkout -b prefetch origin/prefetch
 
     ```
     #[dependencies.filecoin-proofs-api]
-    #version = "4.0.2"
-    filecoin-proofs-api = {path="../../../../rust-filecoin-proofs-api", version = "4.0.2"}
-    #branch = "prefetch"
+    #version = "4.0.3"
+    filecoin-proofs-api = {path="../../../../rust-filecoin-proofs-api", version = "4.0.3"}
+    #branch = "v4.0.4"
 
     ```
     修改rust-filecoin-proofs-api,指向本地的rust-fil-proofs
     ```
     [dependencies.filecoin-proofs-v1]
-        version = "4.0.3"
+        version = "4.0.4"
         path = "/home/xjrw/rust-fil-proofs/filecoin-proofs"
         rev = "prefetch"
         package = "filecoin-proofs"
