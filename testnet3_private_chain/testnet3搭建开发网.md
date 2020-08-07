@@ -117,14 +117,14 @@ tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细
         // 有多台机器可以同时跑多个节省时间
         nohup ./lotus-seed   --sector-dir=/opt/local_ssd/.genesis-sectors   pre-seal  --miner-addr=t01000 --sector-offset=0  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
 
-        nohup ./lotus-seed   --sector-dir=/opt/local_ssd/.genesis-sectors   pre-seal  --miner-addr=t01001 --sector-offset=0  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
+        nohup ./lotus-seed   --sector-dir=/opt/local_ssd/.genesis-sectors   pre-seal  --miner-addr=t01001 --sector-offset=0  --sector-size 34359738368 --num-sectors 2  >presector.log 2>&1 & 
 
-        nohup ./lotus-seed   --sector-dir=/opt/local_ssd/.genesis-sectors   pre-seal  --miner-addr=t01002 --sector-offset=0  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
+        nohup ./lotus-seed   --sector-dir=/opt/local_ssd/.genesis-sectors   pre-seal  --miner-addr=t01002 --sector-offset=0  --sector-size 34359738368 --num-sectors 2  >presector.log 2>&1 & 
 
         nohup ./lotus-seed   --sector-dir=/opt/local_ssd/.genesis-sectors   pre-seal  --miner-addr=t01003 --sector-offset=0  --sector-size 34359738368 --num-sectors 1  >presector.log 2>&1 & 
 
         // 合并多个预埋扇区配置文件
-        ./lotus-seed aggregate-manifests ./pre-seal-t01000.json ./pre-seal-t01001.json ./pre-seal-t01002.json ./pre-seal-t01003.json ./pre-seal-t01004.json  > ./pre-seal-genesis.json
+        ./lotus-seed aggregate-manifests ~/.genesis-sectors/pre-seal-t01000.json ~/.genesis-sectors/pre-seal-t01001.json ~/.genesis-sectors/pre-seal-t01002.json > ./pre-seal-genesis.json
 
         ```
 
@@ -134,6 +134,8 @@ tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细
         ./lotus-seed genesis new localnet.json
         
         ./lotus-seed genesis add-miner localnet.json ./pre-seal-genesis.json
+
+        ./lotus-seed genesis add-miner localnet.json ~/.genesis-sectors/pre-seal-t01000.json
         
 
         // 编译lotus 
@@ -151,23 +153,25 @@ tips: 连接到该节点操作只需关心 说明 内容，下面部分为详细
         Set up the genesis miner:
 
         ```sh
-        nohup ./lotus-storage-miner init --genesis-miner --actor=t01000 --sector-size=34359738368 --pre-sealed-sectors=~/.genesis-sectors --pre-sealed-metadata=~/.genesis-sectors/pre-seal-t01000.json --nosync >minerinit.log 2>&1 &
+        nohup ./lotus-miner init --genesis-miner --actor=t01000 --sector-size=34359738368 --pre-sealed-sectors=~/.genesis-sectors --pre-sealed-metadata=~/.genesis-sectors/pre-seal-t01000.json --nosync >minerinit.log 2>&1 &
         ```
 
         Now, finally, start up the miner:
 
         ```sh
-        nohup ./lotus-storage-miner run --nosync >miner.log 2>&1 &
+        nohup ./lotus-miner run --nosync >miner.log 2>&1 &
         ```
 
         If all went well, you will have your own local Lotus Devnet running.
+
+         /home/xjrw/lotus-0.4.1/lotus-seal-worker run --address=172.70.16.118:3523 --no-local-storage=false --precommit1=true --precommit2=true --commit=true
 
 lotus-fountain程序
 
     // 编译该目录文件
     cmd/lotus-fountain/main.go
     go build
-    nohup ./lotus-fountain run -front 0.0.0.0:7778 -from t3u6grpdmn65jfn2iyuzo47kyf64yumxvrbz7clkw77jtpwy6mamogiovbbs42sikhsqhkhnp3lepqy46slpsq >lotus-fountain.log 2>&1 &
+    nohup ./lotus-fountain run -front 0.0.0.0:7778 -from t3smo6aetu2jw763eqtiq25vww6xdkqbqyb34ui6ie7kqrzgxjfioewauvcnxbmkduhqmcewmxilgrpmdyf2oa >lotus-fountain.log 2>&1 &
 
 初始节点初始化完成
 
@@ -180,6 +184,9 @@ lotus-fountain程序
     3. 编译 make build
 
     4.后续的部署操作与官方操作一致，创建矿工等
+
+
+     ./lotus-worker run --address=172.20.15.114 --precommit1=true --precommit2=true --commit=true
 
 
 
