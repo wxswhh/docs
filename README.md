@@ -19,4 +19,5 @@ FIL_PROOFS_USE_SSD_CACHE =1 或其它， 是否使用FIL_PROOFS_SSD_PARENT作为
 FIL_PROOFS_SSD_PARENT="/opt/local_ssd/SSD_PARENT" 临时的cache文件的缓存路径
 
 FIL_PROOFS_MAX_FETCH_COUNT=4 P1缓存数，以8M为单位，值从0到16，如果小于2，不启动，如果大于16，只取16，一般取4即可
+FIL_PROOFS_CPUID = 1/3/5/7 .. 23  lock thread to cpu
 
