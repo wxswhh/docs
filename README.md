@@ -15,12 +15,11 @@
 
 FIL_PROOFS_ADDPIECE_CACHE: 缓存的空预处理好的add_piece所在的位置，如果为空，表示不跳过add_piece，如果有值，生成或使用该目录下的文件
 
-FIL_PROOFS_USE_SSD_CACHE =1 或其它， 是否使用FIL_PROOFS_SSD_PARENT作为缓存路径，如果使用，cache中的文件临时生成在这个路径上，生成后再转移到实际的目标路径中去
-
-FIL_PROOFS_SSD_PARENT="/opt/local_ssd/SSD_PARENT" 临时的cache文件的缓存路径
+FIL_PROOFS_SSD_PARENT="/opt/local_ssd/SSD_PARENT" 临时的cache文件的缓存路径，如果不设置，就不做缓存，直接向目标文件夹中写入（如果目标文件系统不支持大量的小数据读写，可能会有性能问题）
 
 **注意** 在做P2时，直接写入分布式存储将会导致P2速度慢，因此还是需要设置FIL_PROOFS_SSD_PARENT，需要将这个值设置成/dev/shm，这样将会在内存中存储P2产生tree-c/tree-r-last文件，生成完毕后自动移动到文件系统上。 
 
+FIL_PROOFS_P2_THREADS = 4    做P2时，同时读取数据的线程数，如果CPU速度慢，用GPU做P2时GPU的使用率不满，可以适当增大该值，一般可选为2、4或8，如果不设置，默认为2
 FIL_PROOFS_RESERVED_MEMORY=40 系统保留的内存，是一个数字，以G为单位，为了安全起见一般选为40
 
 XJRW_SHOW_LOGS =y 打开更详细的日志
