@@ -29,18 +29,16 @@ RUST_LOG="trace" FIL_PROOFS_ADDPIECE_CACHE="/mnt/ssd/bench/piece32G"  FIL_PROOFS
 
 
 ### P2 IO
-## 策略
-root@xjrw_node02:~# echo deadline > /sys/block/sdd/queue/scheduler
-root@xjrw_node02:~# echo deadline > /sys/block/sde/queue/scheduler
-root@xjrw_node02:~# echo deadline > /sys/block/sdf/queue/scheduler
-root@xjrw_node02:~# echo deadline > /sys/block/sdg/queue/scheduler
-root@xjrw_node02:~# cat /sys/block/sde/queue/scheduler
+## 策略  
+root@xjrw_node02:~# echo deadline > /sys/block/sdd/queue/scheduler   
+root@xjrw_node02:~# echo deadline > /sys/block/sde/queue/scheduler    
+root@xjrw_node02:~# echo deadline > /sys/block/sdf/queue/scheduler    
+root@xjrw_node02:~# echo deadline > /sys/block/sdg/queue/scheduler    
+root@xjrw_node02:~# cat /sys/block/sde/queue/scheduler    
 
-## 快速存储
-root@xjrw_node02:~# echo 1 > /proc/sys/vm/dirty_background_ratio
-root@xjrw_node02:~# echo 1 > /proc/sys/vm/dirty_ratio
-root@xjrw_node02:~# htop
-root@xjrw_node02:~# echo 0 > /proc/sys/vm/dirty_ratio
-root@xjrw_node02:~# echo 0 > /proc/sys/vm/dirty_background_ratio
+## 快速存储    
+
+root@xjrw_node02:~# echo 0 > /proc/sys/vm/dirty_ratio     
+root@xjrw_node02:~# echo 0 > /proc/sys/vm/dirty_background_ratio    
 
 
