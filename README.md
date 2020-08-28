@@ -26,3 +26,21 @@ XJRW_SHOW_LOGS =y 打开更详细的日志
 
 ### 
 RUST_LOG="trace" FIL_PROOFS_ADDPIECE_CACHE="/mnt/ssd/bench/piece32G"  FIL_PROOFS_SDR_PARENTS_CACHE_SIZE=65536 FIL_PROOFS_USE_SSD_CACHE=1 FIL_PROOFS_USE_GPU_TREE_BUILDER=1 FIL_PROOFS_USE_GPU_COLUMN_BUILDER=1  XJRW_SHOW_LOG=y XJRW_SHOW_LOGS=y FIL_PROOFS_SSD_PARENT="/mnt/ssd/bench/$2" FIL_PROOFS_PARAMETER_CACHE="/home/zhu/filecoin-proof-parameters-v28" FIL_PROOFS_PARENT_CACHE="/mnt/ssd/parent" ........
+
+
+### P2 IO
+## 策略
+root@xjrw_node02:~# echo deadline > /sys/block/sdd/queue/scheduler
+root@xjrw_node02:~# echo deadline > /sys/block/sde/queue/scheduler
+root@xjrw_node02:~# echo deadline > /sys/block/sdf/queue/scheduler
+root@xjrw_node02:~# echo deadline > /sys/block/sdg/queue/scheduler
+root@xjrw_node02:~# cat /sys/block/sde/queue/scheduler
+
+## 快速存储
+root@xjrw_node02:~# echo 1 > /proc/sys/vm/dirty_background_ratio
+root@xjrw_node02:~# echo 1 > /proc/sys/vm/dirty_ratio
+root@xjrw_node02:~# htop
+root@xjrw_node02:~# echo 0 > /proc/sys/vm/dirty_ratio
+root@xjrw_node02:~# echo 0 > /proc/sys/vm/dirty_background_ratio
+
+
