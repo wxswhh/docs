@@ -27,7 +27,7 @@
 * FIL_PROOFS_PREFETCH_ONCE = 5/10      P2一次读取数据个数    
 
 **非常重要**
-* RAYON_NUM_THREADS=10    允许生成tree-d是同时启动的线程数
+* 删除 RAYON_NUM_THREADS  这个将系统中的全局线程池中的线程数，默认与系统中的逻辑核心数一致
 
 ### 
 ```shell
