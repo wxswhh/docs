@@ -29,6 +29,16 @@
 **非常重要**
 * 删除 RAYON_NUM_THREADS  这个将系统中的全局线程池中的线程数，默认与系统中的逻辑核心数一致
 
+#### C2环境变量   
+* FIL_PROOFS_C2_TASKS = 1/2/3/4/.....  C2可以同时运行的电路综合任务，与内存有关，256G 一个， 384G 两个  512G 3个
+
+C2 分为三个阶段 CPU  使用CPU/ FFT使用第一个GPU /multiexp  使用所有GPU， 以目前2080TI为例， 
+> 一个任务  CPU  14m / FFT 5m /multiexp 12.5m  共计 31.5 m 
+> 2个任务   
+>>   task 1   CPU  14m / FFT 5m /multiexp 12.5m  
+>>  task  2                        CPU  14m / FFT 5m /multiexp 12.5m 
+共计   31.5+5+12.5 = 49m 平均 25m
+
 ### 
 ```shell
 RUST_LOG="trace" FIL_PROOFS_ADDPIECE_CACHE="/mnt/ssd/bench/piece32G"  FIL_PROOFS_SDR_PARENTS_CACHE_SIZE=65536 FIL_PROOFS_USE_SSD_CACHE=1 FIL_PROOFS_USE_GPU_TREE_BUILDER=1 FIL_PROOFS_USE_GPU_COLUMN_BUILDER=1  XJRW_SHOW_LOG=y XJRW_SHOW_LOGS=y FIL_PROOFS_SSD_PARENT="/mnt/ssd/bench/$2" FIL_PROOFS_PARAMETER_CACHE="/home/zhu/filecoin-proof-parameters-v28" FIL_PROOFS_PARENT_CACHE="/mnt/ssd/parent" ........
