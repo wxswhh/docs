@@ -24,7 +24,7 @@
 * FIL_PROOFS_PREFETCH_ONCE = 5/10      P2一次读取数据个数     
 * FIL_PROOFS_PREFETCH_TOTAL = 5/10      P2总缓存的个数
 
-* FIL_PROOFS_CPU_BOND = "xxx/...../cpu_bond.json" 这个是绑核的配置，具体的配置见下章
+* FIL_PROOFS_CPU_BOND = "xxx/...../cpu_bond.json" 这个是绑核的配置，具体的配置见[绑核文件](#core)一章
 
 * FIL_PROOFS_MEM_ITEM_CNT = xx   用于P1的内存的数
 
@@ -60,7 +60,7 @@ RUST_LOG="trace" FIL_PROOFS_ADDPIECE_CACHE="/mnt/ssd/bench/piece32G"  FIL_PROOFS
 > echo 0 > /proc/sys/vm/dirty_ratio     
 > echo 0 > /proc/sys/vm/dirty_background_ratio    
 
-# 绑核文件说明
+#   绑核文件说明
 绑核文件中每个具有5个项，其绑定方式如下：    
 * 1 -  哈希线程： 主哈希线程，绑定到物理核心上    
 * 2 - 喂哈希数据线程： 绑定到距离哈希线程最近的核心上（超线程？需要测试）    
