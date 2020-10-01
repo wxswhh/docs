@@ -26,6 +26,8 @@
 
 * FIL_PROOFS_PREFETCH_ONCE = 5/10      P2一次读取数据个数    
 
+* FIL_PROOFS_CPU_BOND = "xxx/...../cpu_bond.json" 这个是绑核的配置，具体的配置见下章
+
 **非常重要**
 * 删除 RAYON_NUM_THREADS  这个将系统中的全局线程池中的线程数，默认与系统中的逻辑核心数一致
 
@@ -58,4 +60,9 @@ RUST_LOG="trace" FIL_PROOFS_ADDPIECE_CACHE="/mnt/ssd/bench/piece32G"  FIL_PROOFS
 > echo 0 > /proc/sys/vm/dirty_ratio     
 > echo 0 > /proc/sys/vm/dirty_background_ratio    
 
-
+# 绑核文件说明
+绑核文件中每个具有5个项，其绑定方式如下：
+1. 哈希线程： 主哈希线程，绑定到物理核心上
+2.喂哈希数据线程： 绑定到距离哈希线程最近的核心上（超线程？需要测试）
+3/4. 数据预读线程：同一核心的两个线程（超线程）
+5. 调度线程： 调用3／4的线程（是否可以和2绑一个？）
