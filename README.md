@@ -24,9 +24,12 @@
 
 *  XJRW_SHOW_LOGS =y 打开更详细的日志    
 
-* FIL_PROOFS_PREFETCH_ONCE = 5/10      P2一次读取数据个数    
+* FIL_PROOFS_PREFETCH_ONCE = 5/10      P2一次读取数据个数     
+* FIL_PROOFS_PREFETCH_TOTAL = 5/10      P2总缓存的个数
 
 * FIL_PROOFS_CPU_BOND = "xxx/...../cpu_bond.json" 这个是绑核的配置，具体的配置见下章
+
+* FIL_PROOFS_MEM_ITEM_CNT = xx   用于P1的内存的数
 
 **非常重要**
 * 删除 RAYON_NUM_THREADS  这个将系统中的全局线程池中的线程数，默认与系统中的逻辑核心数一致
