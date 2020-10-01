@@ -19,9 +19,6 @@
 
 **注意** 在做P2时，直接写入分布式存储将会导致P2速度慢，因此还是需要设置FIL_PROOFS_SSD_PARENT，需要将这个值设置成/dev/shm，这样将会在内存中存储P2产生tree-c/tree-r-last文件，生成完毕后自动移动到文件系统上。 
 
-*  FIL_PROOFS_P2_THREADS = 3    做P2时，同时读取数据的线程数，如果CPU速度慢，用GPU做P2时GPU的使用率不满，可以适当增大该值，一般可选为2，如果不设置，默认为2
-*  FIL_PROOFS_RESERVED_MEMORY=40 系统保留的内存，是一个数字，以G为单位，为了安全起见一般选为40
-
 *  XJRW_SHOW_LOGS =y 打开更详细的日志    
 
 * FIL_PROOFS_PREFETCH_ONCE = 5/10      P2一次读取数据个数     
@@ -69,3 +66,5 @@ RUST_LOG="trace" FIL_PROOFS_ADDPIECE_CACHE="/mnt/ssd/bench/piece32G"  FIL_PROOFS
 * 2 - 喂哈希数据线程： 绑定到距离哈希线程最近的核心上（超线程？需要测试）    
 * 3/4 -  数据预读线程：同一核心的两个线程（超线程）    
 * 5 -  调度线程： 调用3／4的线程（是否可以和2绑一个？）    
+如果 5和2设置了同一核心号，就会将5和2绑定到同一线程上
+
